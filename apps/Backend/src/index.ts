@@ -12,8 +12,10 @@ app.get('/', (c) => {
     })
 } )
 
-app.basePath('/api/v1').route('/todo', todoRoutes)
-
+const apiRoutes =  app.basePath('/api/v1')
+.route('/todo', todoRoutes)
+// .route('/videos')
 
 
 export default app
+export type apiRoutes =  typeof apiRoutes 

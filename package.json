@@ -1,5 +1,5 @@
 {
-  "name": "Smart_Education",
+  "name": "smart-education",
   "private": true,
   "scripts": {
     "build": "turbo build",
