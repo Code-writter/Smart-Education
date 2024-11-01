@@ -12,7 +12,7 @@ export default defineConfig({
   server : {
     proxy : {
       "/api/v1" : {
-        target : 'https://backend2.abhishektiwari28032004.workers.dev/'       
+        target : "http://localhost:8787"
       }
     }
   }

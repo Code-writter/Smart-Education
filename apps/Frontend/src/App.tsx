@@ -1,15 +1,14 @@
 
 import { useEffect, useState } from "react"
 import { Button } from "./components/ui/button"
-import { api } from "./utils/api"
-
+import axios from "axios"
 export default function App(){
     const [data, setData] = useState<{ description: string }[]>([])
     useEffect(() => {
         async function fetchData () {
-            // const res = await axios.get('https://backend2.abhishektiwari28032004.workers.dev/api/v1/todo/todos')  
-            const res = await api.todo.todos.$get()
-            setData(await res.json())
+            const res = await axios.get('https://backend2.abhishektiwari28032004.workers.dev/api/v1/todo/todos')  
+            // const res = await api.todo.todos.$get()
+            setData(res.data)
         } 
         fetchData()
     }, [])
