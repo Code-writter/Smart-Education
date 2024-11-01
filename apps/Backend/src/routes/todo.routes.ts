@@ -42,7 +42,6 @@ export const todoRoutes = new Hono()
 //is completed
 
 .put('/todo:id{[0-9]+}', (c) => {
-    const id = c.req.param("id")
 
     return c.json({
         msg :"updated todo to completd"
