@@ -15,7 +15,7 @@ export default function App(){
         fetchData()
     }, [])
     return (
-        <div>
+        <div className=" h-screen w-full bg-gray-800" >
            <Button> WOrk </Button>
            <div>
                 {JSON.stringify(data.map((todo) => {
