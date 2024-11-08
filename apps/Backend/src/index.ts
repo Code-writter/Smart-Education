@@ -2,6 +2,8 @@ import { Hono } from "hono";
 import { logger } from "hono/logger";
 import { cors } from "hono/cors";
 import { todoRoutes } from "./routes/todo.routes";
+import { videoRoute } from "./routes/video.routes";
+import { userRoutes } from "./routes/user.routes";
 const app = new Hono()
 app.use('*', logger())
 app.use(cors())
@@ -12,10 +14,10 @@ app.get('/', (c) => {
     })
 } )
 
-const apiRoutes =  app.basePath('/api/v1')
+app.basePath('/api/v1')
 .route('/todo', todoRoutes)
-// .route('/videos')
-
+.route('/videos' , videoRoute)
+.route('/user', userRoutes)
 
 export default app
-export type apiRoutes =  typeof apiRoutes 
+
