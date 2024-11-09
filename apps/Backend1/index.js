@@ -2,10 +2,12 @@ import express from  "express"
 import dotenv, { config } from 'dotenv'
 import multer from "multer"
 import cors from "cors"
-import path from "path"
-import fs from 'fs'
+// import path from "path"
+// import fs from 'fs'
 import admin from 'firebase-admin'
 import serviceAccount from './adminCredential.json' assert {type  : 'json'}
+import { getStorage} from "firebase-admin/storage"
+
 
 dotenv.config()
 
@@ -30,7 +32,7 @@ app.use("./public/temp", express.static("uploads"))
 
 const PORT = process.env.PORT || 3000
 
-admin.initializeApp(firebaseConfig)
+const fireApp = admin.initializeApp(firebaseConfig)
 
 app.post('/upload', upload.single('video'), (req, res) => {
     const file = req.file;
@@ -53,6 +55,30 @@ app.post('/upload', upload.single('video'), (req, res) => {
     });
 });
 
+
+// const fireApp = initializeApp(firebaseConfig)
+const firebaseStorage = getStorage(fireApp);
+const listRef = ref(firebaseStorage, 'files/uid')
+
+app.get('/videos', () => {
+
+    listAll(listRef)
+    .then((res) => {
+        res.prefixes.forEach((folderRef) => {
+            const list = folderRef.fullPath()
+            console.log( "LIst", list)
+            console.log("Folder Ref : ", folderRef);
+            
+        })
+
+        res.items((itemsRef) => {
+            console.log("Iteam Ref : ", itemsRef)
+        })
+    }).catch((error) => {
+        console.log("Something went wrong while fetching the data ", error)
+    })
+
+})
 
 // app.post('/upload', upload.single('video'), (req, res) => {
 //     const file = req.file;
